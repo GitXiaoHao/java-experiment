@@ -61,7 +61,7 @@ public class UserServlet extends BaseServlet {
      */
     public void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //获取
-        String email = this.getParam(request, "") + "@qq.com";
+        String email = this.getParam(request, new UserAccount()).getEmail();
         //获取四位的验证码
         String randomNumbers = RandomUtil.randomNumbers(4);
         //发送验证码

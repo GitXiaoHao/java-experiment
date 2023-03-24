@@ -152,7 +152,7 @@ new Vue({
             axios({
                 method: 'post',
                 url: '../user/getCode',
-                data: _this.registerForm.email
+                data: _this.registerForm
             }).then(function (response) {
                 const data = response.data;
                 if(data.code){
