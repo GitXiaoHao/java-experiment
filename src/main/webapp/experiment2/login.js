@@ -157,17 +157,19 @@ new Vue({
                 const data = response.data;
                 if(data.code){
                     _this.verificationCode = data.data;
+                    console.log(_this.verificationCode)
                     Vue.prototype.$message({
                         message: '发送成功，请注意查收',
                         type: 'success'
                     });
+
                 }else{
                     Vue.prototype.$message.error(data.msg);
                 }
             })
             let num = 60;
             //不可点击
-            this.verificationStatus = 0;
+            _this.verificationStatus = 0;
             clearInterval(verificationTimer);
             //设置个定时器
             verificationTimer = setInterval(function () {
@@ -176,7 +178,7 @@ new Vue({
                     $('.verification').text(num + " 秒后再重试");
                 } else {
                     //如果倒计时结束
-                    this.verificationStatus = 1;
+                    _this.verificationStatus = 1;
                     clearInterval(verificationTimer);
                     $('.verification').text("点击邮箱进行验证");
                 }
