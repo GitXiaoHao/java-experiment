@@ -20,4 +20,29 @@
         name,phone,email,
         code,is_status
     </sql>
+    <select id="getOneByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_account
+        where
+        username = #{username,jdbcType=VARCHAR}
+    </select>
+    <insert id="addAll">
+        insert into user_account
+        (id, username, password,
+         name, phone, email,
+         code, is_status)
+        values (#{id,jdbcType=NUMERIC}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+                #{code,jdbcType=VARCHAR}, #{isStatus,jdbcType=NUMERIC})
+
+    </insert>
+    <select id="getOneByUsernameAndPassword" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_account
+        where
+        username = #{username,jdbcType=VARCHAR}
+        AND password = #{password,jdbcType=VARCHAR}
+    </select>
 </mapper>

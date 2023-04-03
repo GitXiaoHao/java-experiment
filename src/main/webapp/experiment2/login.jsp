@@ -48,7 +48,7 @@
                 <el-input v-model.number="registerForm.age"></el-input>
             </el-form-item>
             <el-form-item label="验证码" prop="code">
-                <el-input v-model.number="registerForm.code"></el-input>
+                <el-input v-model="registerForm.code"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="verificationForm('ruleForm')" class="verification"

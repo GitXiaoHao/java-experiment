@@ -1,0 +1,33 @@
+
+/* 页码和省略号的统一样式 */
+#pagination a,
+#pagination i{
+    display: inline-block;
+    min-width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 4px;
+    margin: 0 3px;
+}
+/* 页码 */
+#pagination a{
+    border: 1px solid #333;
+    background-color: #333;
+    color: #eee;
+    font-size: 13px;
+}
+#pagination a:hover{
+    background-color: #000;
+    cursor: pointer;
+}
+/* 当前页码 */
+#pagination a.current{
+    background-color: transparent;
+    color: #333;
+    font-weight: bold;
+}
+/* 省略号 */
+#pagination i{
+    font-size: 18px;
+}

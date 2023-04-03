@@ -1,5 +1,5 @@
 
-let verificationTimer;
+
 new Vue({
     el: "#app",
     data() {
@@ -85,6 +85,8 @@ new Vue({
             }
         }
         return {
+            //定时器
+            verificationTimer: null,
             //保存验证码
             verificationCode: "",
             //判断是否点击了发送验证码
@@ -170,16 +172,16 @@ new Vue({
             let num = 60;
             //不可点击
             _this.verificationStatus = 0;
-            clearInterval(verificationTimer);
+            clearInterval(_this.verificationTimer);
             //设置个定时器
-            verificationTimer = setInterval(function () {
+            _this.verificationTimer = setInterval(function () {
                 num--;
                 if (num) {
                     $('.verification').text(num + " 秒后再重试");
                 } else {
                     //如果倒计时结束
                     _this.verificationStatus = 1;
-                    clearInterval(verificationTimer);
+                    clearInterval(_this.verificationTimer);
                     $('.verification').text("点击邮箱进行验证");
                 }
             }, 1000);
@@ -202,7 +204,7 @@ new Vue({
                                 type: 'success'
                             });
                             //跳转
-
+                            _this.cancel();
                         } else {
                             //没有成功登录
                             Vue.prototype.$message.error(data.msg);
@@ -215,15 +217,16 @@ new Vue({
             });
         },
         registerSubmitForm(formName) {
+            const _this = this;
             this.$refs[formName].validate(async (valid) => {
                 //先判断验证码是否正确
-                if ("" === this.verificationCode) {
+                if ("" === _this.verificationCode) {
                     return Vue.prototype.$message.error("请先激活邮箱，发送验证码");
-                } else if (this.verificationCode !== this.registerForm.code) {
+                } else if (String(_this.verificationCode) !== String(_this.registerForm.code)) {
                     return Vue.prototype.$message.error("验证码错误");
                 }
-                const _this = this;
                 if (valid) {
+                    _this.verificationStatus = 1;
                     //注册
                     await axios({
                         method: "post",
@@ -236,6 +239,8 @@ new Vue({
                                 message: "注册成功",
                                 type: 'success'
                             });
+                            //跳转注册
+
                         }else{
                             Vue.prototype.$message.error(data.msg);
                         }

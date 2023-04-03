@@ -9,6 +9,7 @@ import top.yh.experiment.service.UserAccountService;
 import top.yh.experiment.service.impl.UserAccountServiceImpl;
 import top.yh.experiment.utils.Result;
 import top.yh.servlet.BaseServlet;
+import top.yh.string.StringUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,10 +47,16 @@ public class UserServlet extends BaseServlet {
         //获取传过来的数据
         UserAccount userAccount = this.getParam(request, new UserAccount());
         //获取数据库的用户
+        //判断用户名和密码是否输入
+        if (StringUtil.isEmpty(userAccount.getUsername()) && StringUtil.isEmpty(userAccount.getPassword())) {
+            //如果等于空
+            this.writeValueAsGetWrite(response, this.writeValueAsString(Result.error("用户名或密码错误")));
+            return;
+        }
         Result result = userAccountService.getUserAccount(userAccount);
         if(result.getCode() == 1){
             //存入request
-            request.setAttribute("userAccount", userAccount);
+            request.setAttribute("user", userAccount);
             this.writeValueAsGetWrite(response,this.writeValueAsString(Result.success(result.getData())));
         }else{
             this.writeValueAsGetWrite(response,this.writeValueAsString(Result.error(result.getMsg())));

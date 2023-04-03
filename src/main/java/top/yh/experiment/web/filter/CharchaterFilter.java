@@ -1,6 +1,8 @@
 package top.yh.experiment.web.filter;
 
 
+import top.yh.database.utils.MyBatisUtil;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +19,7 @@ public class CharchaterFilter implements Filter {
     }
 
     public void destroy() {
-        //MyBatisUtil.closeSession();
+        MyBatisUtil.closeSession();
         //RedisUtil.closeJedis();
     }
 
