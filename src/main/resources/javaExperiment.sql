@@ -28,7 +28,7 @@ create table library(
  COLLATE = utf8_bin COMMENT ='图书表';
 
 create table cart(
-    c_id int auto_increment primary key comment '主键',
+    c_id int auto_increment primary key comment '主键'
 
 )ENGINE = InnoDB
  DEFAULT CHARSET = utf8
