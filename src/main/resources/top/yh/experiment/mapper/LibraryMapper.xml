@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.yh.experiment.mapper.LibraryMapper">
+
+    <resultMap id="BaseResultMap" type="top.yh.experiment.pojo.Library">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="price" column="price" jdbcType="INTEGER"/>
+            <result property="category" column="category" jdbcType="VARCHAR"/>
+            <result property="author" column="author" jdbcType="VARCHAR"/>
+            <result property="lImage" column="l_image" jdbcType="VARCHAR"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="borrowedOrNot" column="borrowed_or_not" jdbcType="INTEGER"/>
+            <result property="whetherToPurchased" column="whether_to_purchased" jdbcType="INTEGER"/>
+            <result property="sales" column="sales" jdbcType="INTEGER"/>
+            <result property="borrowedQuantity" column="borrowed_quantity" jdbcType="INTEGER"/>
+            <result property="stock" column="stock" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+            <result property="lCode" column="l_code" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,price,
+        category,author,l_image,
+        introduce,borrowed_or_not,whether_to_purchased,
+        sales,borrowed_quantity,stock,
+        remarks,l_code
+    </sql>
+    <select id="selectAll" resultType="top.yh.experiment.pojo.Library">
+        select <include refid="Base_Column_List"/>
+        from experiment.library
+    </select>
+    <select id="selectAllFuzzyQueryByNameAndByPriceAndByCategory" resultType="top.yh.experiment.pojo.Library">
+        select
+        <include refid="Base_Column_List"/>
+        from experiment.library where 1 = 1
+        <if test="queryName != null">
+            name like concat('%',${queryName},'%')
+        </if>
+        <if test="queryPrice != null">
+            and price = #{queryPrice}
+        </if>
+        <if test="queryCategory != null">
+            and category = #{queryCategory}
+        </if>
+    </select>
+    <select id="selectOneByAuthorOrCategoryOrNameOrBorrowedOrNot" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from library
+        <where>
+            author = #{author,jdbcType=VARCHAR}
+            OR category = #{category,jdbcType=VARCHAR}
+            OR name = #{name,jdbcType=VARCHAR}
+            OR borrowed_or_not = #{borrowedOrNot,jdbcType=NUMERIC}
+            OR whether_to_purchased = #{whetherToPurchased}
+        </where>
+    </select>
+    <insert id="addAll">
+        insert into library
+        (id, name, price,
+         category, author, l_image,
+         introduce, borrowed_or_not, whether_to_purchased,
+         sales, borrowed_quantity, stock,
+         remarks, l_code)
+        values (#{id,jdbcType=NUMERIC}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=NUMERIC},
+                #{category,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{lImage,jdbcType=VARCHAR},
+                #{introduce,jdbcType=VARCHAR}, #{borrowedOrNot,jdbcType=NUMERIC},
+                #{whetherToPurchased,jdbcType=NUMERIC},
+                #{sales,jdbcType=NUMERIC}, #{borrowedQuantity,jdbcType=NUMERIC}, #{stock,jdbcType=NUMERIC},
+                #{remarks,jdbcType=VARCHAR}, #{lCode,jdbcType=VARCHAR})
+
+    </insert>
+</mapper>

@@ -2,6 +2,7 @@ package top.yh.experiment.mapper;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
+import top.yh.experiment.pojo.Library;
 import top.yh.experiment.pojo.UserAccount;
 
 /**
@@ -34,6 +35,12 @@ public interface UserAccountMapper {
      */
 
     UserAccount getOneByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+    /**
+     * 查找所有数据
+     *
+     * @return 返回list集合
+     */
+    List<UserAccount> selectAll();
 }
 
 

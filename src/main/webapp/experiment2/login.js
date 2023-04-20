@@ -187,7 +187,7 @@ new Vue({
             }, 1000);
 
         },
-        async loginSubmitForm(formName) {
+        loginSubmitForm(formName) {
             this.$refs[formName].validate(async (valid) => {
                 const _this = this;
                 if (valid) {
@@ -204,7 +204,7 @@ new Vue({
                                 type: 'success'
                             });
                             //跳转
-                            _this.cancel();
+                            location.href = "data.jsp";
                         } else {
                             //没有成功登录
                             Vue.prototype.$message.error(data.msg);
@@ -239,8 +239,8 @@ new Vue({
                                 message: "注册成功",
                                 type: 'success'
                             });
-                            //跳转注册
-
+                            //跳转登录
+                            _this.cancel()
                         }else{
                             Vue.prototype.$message.error(data.msg);
                         }

@@ -80,10 +80,5 @@
     </div>
 </div>
 </body>
-<script type="module">
-    import { Message } from 'element-ui'
-    // 挂载到$message上
-    Vue.prototype.$message = Message
-</script>
 <script src="login.js"></script>
 </html>

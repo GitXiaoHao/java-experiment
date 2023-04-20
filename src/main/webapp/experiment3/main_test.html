@@ -1,15 +1,19 @@
-<%@ page import="top.yh.experiment.pojo.Library" %>
-<%@ page import="com.github.pagehelper.PageInfo" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="../include/include.jsp" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>图书管理</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
     <link href="listPage.css" rel="stylesheet">
+    <script src="../jquery/jquery-3.6.1.min.js"></script>
+    <!-- 1. 引入vue -->
+    <script src="../vue/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- 2. 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 3. 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 <div class="container" id="app">
@@ -22,7 +26,7 @@
                 <el-input v-model="queryList.queryName" placeholder="书名"></el-input>
             </el-form-item>
             <el-form-item label="价格">
-                <el-input v-model.number="queryList.queryPrice" placeholder="价格"></el-input>
+                <el-input v-model="queryList.queryPrice" placeholder="价格"></el-input>
             </el-form-item>
             <el-form-item label="类别">
                 <el-select v-model="queryList.queryCategory" placeholder="类别">
@@ -30,7 +34,7 @@
                             v-for="item in options"
                             :key="item.bId"
                             :label="item.name"
-                            :value="item.name">
+                            :value="item.bId">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -39,14 +43,12 @@
             </el-form-item>
         </el-form>
         <div style="float: right;" class="function-button">
-            <el-button type="success" @click="addBook">添加图书</el-button>
+            <el-button type="success">添加用户</el-button>
             <el-button type="danger" id="delSelected">删除选中</el-button>
-            <el-button type="success" @click="dialogFormVisible = true">添加图书分类</el-button>
         </div>
     </div>
-    <%--    选中框的表单--%>
     <div class="table-container">
-        <form id="deleteForm">
+        <form id="deleteForm" class="container-form">
             <table class="table table-hover">
                 <tr>
                     <th><label>
@@ -62,60 +64,28 @@
                     <th>操作</th>
                 </tr>
                 <tr v-for="(information,i) in informationList">
-                    <td><label>
-                        <input class="itemSelect" type="checkbox" name="userid" value={{information.id}}>
-                    </label></td>
-                    <td>{{i + 1}}</td>
-                    <td>{{information.name}}</td>
-                    <td>{{information.price}}</td>
-                    <td>{{information.category}}</td>
-                    <td>{{information.author}}</td>
-                    <td>{{information.borrowedOrNot === 1 ? '是' : '否'}}</td>
-                    <td>{{information.whetherToPurchased === 1 ? '是' : '否'}}</td>
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ information.name }}</td>
+                    <td>{{ information.price }}</td>
+                    <td>{{ information.category }}</td>
+                    <td>{{ information.author }}</td>
+                    <td>{{ information.borrowedOrNot === 1 ? '是' : '否' }}</td>
+                    <td>{{ information.whetherToPurchased === 1 ? '是' : '否' }}</td>
                 </tr>
             </table>
         </form>
     </div>
     <div id="pagination" style="float: left">
-        <c:if test="${requestScope.pageInfo.currentPage == 1}">
-            <a style="pointer-events: none; opacity: 0.2;">&#9668;</a>
-        </c:if>
-        <c:if test="${requestScope.pageInfo.currentPage != 1}">
-            <a @click="findNextPage(-1,true)">&#9668;</a>
-        </c:if>
+        <a style="pointer-events: none; opacity: 0.2;">&#9668;</a>
         <span>
-            <c:forEach begin="1" end="${requestScope.pageInfo.totalPage}" var="i">
-                <c:if test="${requestScope.pageInfo.currentPage == i}">
-                     <a class="current"
-                        @click='findNextPage(i,false)'>${i}</a>
-                </c:if>
-                <c:if test="${requestScope.pageInfo.currentPage != i}">
-                    <a class=""
-                       @click="findNextPage(i,false)">${i}</a>
-                </c:if>
-            </c:forEach>
-        </span>
-        <c:if test="${requestScope.pageInfo.currentPage == requestScope.pageInfo.totalPage}">
-            <a style="pointer-events: none;opacity: 0.2;">&#9658;</a>
-        </c:if>
-        <c:if test="${requestScope.pageInfo.currentPage != requestScope.pageInfo.totalPage}">
-            <a @click="findNextPage(1,true)">&#9658;</a>
-        </c:if>
-        <label style="float: initial; font-size: 25px; margin-left: 5px">共${requestScope.pageInfo}条记录，共${requestScope.pageInfo.totalPage}页</label>
-    </div>
-    <el-dialog title="添加分类" :visible.sync="dialogFormVisible">
-        <el-form :model="bookCategory">
-            <el-form-item label="分类名称" :label-width="formLabelWidth">
-                <el-input v-model="bookCategory.name" autocomplete="off"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="addBookCategory">确 定</el-button>
-        </div>
-    </el-dialog>
-</div>
 
+        </span>
+        <a style="pointer-events: none;opacity: 0.2;">&#9658;</a>
+        <label style="float: initial; font-size: 25px; margin-left: 5px">共20录，共100页</label>
+    </div>
+
+
+</div>
 </body>
 <script>
     function deleteUser(id) {
@@ -155,21 +125,16 @@
         el: '#app',
         data() {
             return {
-                formLabelWidth: '120px',
-                bookCategory: {
-                    name: ''
-                },
-                dialogFormVisible: false,
                 //行数
                 rows: 5,
                 //模糊查询
                 queryList: {
                     //模糊查询的图书名
-                    queryName: null,
+                    queryName: '',
                     //模糊查询的图书价格
                     queryPrice: null,
                     //模糊查询的类别
-                    queryCategory: null,
+                    queryCategory: '',
                 },
                 //类别选项
                 options: [{
@@ -183,11 +148,11 @@
             }
         },
         mounted() {
-            this.getLibraryByPage()
+            // this.getLibraryByPage()
         },
         //创建后加载数据
         created() {
-            this.loadCategory()
+            // this.loadCategory()
         },
         methods: {
             //加载分类类别
@@ -196,8 +161,6 @@
                 $.post("../library/findLibraryCategory", {}, function (result) {
                     if (result.code === 1) {
                         _this.options = result.data
-                        // 存储json字符串数据到本地
-                        localStorage.setItem('options', JSON.stringify(_this.options))
                     } else {
                         Vue.prototype.$message.error(result.msg);
                     }
@@ -219,59 +182,25 @@
                 const currentPage = flag ?
                     this.pageInfo.pageNum + num :
                     num
-                this.getLibraryByPage(currentPage)
+                // this.getLibraryByPage(currentPage)
             },
             //分页查询图书
             getLibraryByPage(currentPage = 0) {
                 let _this = this
                 //发送异步请求
-                axios({
-                    method: 'post',
-                    url: "../library/findLibraryByPage",
-                    data: {
-                        currentPage: currentPage,
-                        rows: _this.rows,
-                        queryList: _this.queryList
-                    }
-                }).then(response => {
-                    let result = response.data
-                    if (result.code === 1) {
-                        console.log(result.data.list)
-                        _this.informationList = result.data.list
-                        _this.pageInfo = result.data
-                    } else {
-                        Vue.prototype.$message.error(result.msg);
-                    }
-                })
-            },
-            //添加图书
-            addBook() {
-                location.href = "addBook.jsp"
-            },
-            addBookCategory() {
-                let _this = this
-                //添加图书分类
-                $.post("../library/addBookCategory", {
-                    name: _this.bookCategory.name
+                $.post("../library/findLibraryByPage", {
+                    currentPage: currentPage,
+                    rows: _this.rows,
+                    queryList: _this.queryList
                 }, function (result) {
                     if (result.code === 1) {
-                        //再重新加载
-                        Vue.prototype.$message({
-                            message: '添加成功',
-                            type: 'success'
-                        });
-                        _this.loadCategory()
-                        _this.dialogFormVisible = false
-                        _this.bookCategory.name = ''
-                    } else {
-                        Vue.prototype.$message.error(result.msg)
+                        _this.informationList = result.data.list
+                        _this.pageInfo = result.data
                     }
-                })
-
-            }
+                });
+            },
         }
 
     })
 </script>
 </html>
-

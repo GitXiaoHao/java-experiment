@@ -30,7 +30,7 @@
     <!-- 这里的--i是一个自定义属性 -->
     <a href="experiment1/main1.jsp" style="--i:1">JSP运行环境安装及常用HTML标记使用</a>
     <a href="experiment2/login.jsp" style="--i:2">JSP表单开发及访问数据库</a>
-    <a href="#" style="--i:3">JSP内置对象的使用</a>
+    <a href="experiment3/main.jsp" style="--i:3">JSP内置对象的使用</a>
     <a href="#" style="--i:4">JavaBean及servlet使用</a>
     <a href="#" style="--i:5">Ajax开发及JSP验证码</a>
     <a href="#" style="--i:5">综合训练</a>

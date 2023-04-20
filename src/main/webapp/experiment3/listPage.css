@@ -1,4 +1,59 @@
+/*外边距清空*/
+* {
+    /*清除内外边距*/
+    margin: 0;
+    padding: 0;
+}
 
+html {
+    /*标准字体*/
+    font-size: 10px;
+}
+
+body {
+    /*渐变背景*/
+    background: linear-gradient(120deg, #83C0E1 0%, #D6DCE9 100%) no-repeat; /*设置背景不重复*/
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+
+}
+.title{
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    font-size: 60px;
+    margin: 10px 10px;
+}
+.query-button-container{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding: 20px 10px;
+}
+.function-button{
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+
+.table-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+
+}
+.container-form{
+    font-size: 20px;
+}
+#pagination{
+    margin-left: 50px;
+}
 /* 页码和省略号的统一样式 */
 #pagination a,
 #pagination i{

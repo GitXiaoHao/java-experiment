@@ -25,6 +25,12 @@ public interface UserAccountService {
     Result saveUserAccount(UserAccount userAccount);
 
     /**
+     * 查找所有用户信息
+     * @return
+     */
+    Result getAllUserAccount();
+
+    /**
      * 获取用户
      * @param userAccount 指定的用户
      * @return 如果有就 code 1

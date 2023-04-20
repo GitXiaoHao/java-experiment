@@ -13,15 +13,15 @@
 </head>
 <body>
 <%
-    UserAccount user = (UserAccount) request.getAttribute("user");
+    UserAccount user = (UserAccount) request.getSession().getAttribute("user");
 %>
 <div class="con">
     <h1>欢迎<%=
-        user.getUsername()
+    (user).getUsername()
         %></h1>
 </div>
 <div class="container">
-    <div class="btn"><a href="../library/intoLibrary">点击进入图书馆</a></div>
+    <div class="btn"><a href="../experiment3/main.jsp">点击进入图书馆</a></div>
 </div>
 </body>
 <style>
@@ -76,7 +76,7 @@
     }
 
     h1::after {
-        content: "欢迎来到 hao 个人中心";
+        content: "欢迎<%=user.getUsername()%>";
         /* 颜色为透明 */
         color: transparent;
         position: absolute;

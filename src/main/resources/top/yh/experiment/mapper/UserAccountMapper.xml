@@ -45,4 +45,8 @@
         username = #{username,jdbcType=VARCHAR}
         AND password = #{password,jdbcType=VARCHAR}
     </select>
+    <select id="selectAll" resultType="top.yh.experiment.pojo.UserAccount">
+        select *
+        from experiment.user_account;
+    </select>
 </mapper>
