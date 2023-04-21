@@ -71,6 +71,10 @@
                     <td>{{ information.author }}</td>
                     <td>{{ information.borrowedOrNot === 1 ? '是' : '否' }}</td>
                     <td>{{ information.whetherToPurchased === 1 ? '是' : '否' }}</td>
+                    <td>
+                        <el-button type="success" plain size="mini">添加购物车</el-button>
+                        <el-button type="danger" plain size="mini">删除</el-button>
+                    </td>
                 </tr>
             </table>
         </form>

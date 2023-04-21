@@ -3,6 +3,8 @@ $(function () {
         el: '#app',
         data() {
             return {
+                //类别
+                name: '',
                 //类别选项
                 options: [{
                     bId: '选项1',
@@ -51,6 +53,11 @@ $(function () {
                     ],
                 }
             };
+        },
+        watch: {
+            name(val){
+                this.book.category = val
+            }
         },
         created() {
             this.options = JSON.parse(localStorage.getItem('options'))

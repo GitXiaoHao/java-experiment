@@ -55,3 +55,12 @@ create table book_category
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8
   COLLATE = utf8_bin COMMENT ='图书类别表';
+
+drop table if exists student;
+create table student(
+    `id` int auto_increment primary key comment '主键',
+    `name` varchar(32) not null unique comment '姓名',
+    `password` varchar(32) not null comment '密码'
+)ENGINE = InnoDB
+ DEFAULT CHARSET = utf8
+ COLLATE = utf8_bin COMMENT ='学生表';

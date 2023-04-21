@@ -40,7 +40,12 @@ body {
     margin-bottom: 20px;
 }
 
-
+.table{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
 .table-container{
     display: flex;
     flex-direction: column;

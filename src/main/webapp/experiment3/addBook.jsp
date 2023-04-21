@@ -33,7 +33,7 @@
             <el-input v-model.number="book.price"></el-input>
         </el-form-item>
         <el-form-item label="类别">
-            <el-select v-model="book.category" placeholder="类别">
+            <el-select v-model="name" placeholder="类别">
                 <el-option
                         v-for="item in options"
                         :key="item.bId"

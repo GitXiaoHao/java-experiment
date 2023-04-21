@@ -78,6 +78,8 @@ public class LibraryServlet extends BaseServlet {
         request.setAttribute("pageInfo", page);
         //转发
         this.writeValue(response, Result.success(page));
+        //转发
+        request.getRequestDispatcher("/experiment3/main.jsp").forward(request,response);
     }
 
     /**

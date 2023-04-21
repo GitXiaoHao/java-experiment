@@ -25,7 +25,7 @@
                 <el-input v-model.number="queryList.queryPrice" placeholder="价格"></el-input>
             </el-form-item>
             <el-form-item label="类别">
-                <el-select v-model="queryList.queryCategory" placeholder="类别">
+                <el-select v-model="name" placeholder="类别">
                     <el-option
                             v-for="item in options"
                             :key="item.bId"
@@ -38,11 +38,12 @@
                 <el-button type="primary" icon="el-icon-search" @click="query">搜索</el-button>
             </el-form-item>
         </el-form>
-        <div style="float: right;" class="function-button">
-            <el-button type="success" @click="addBook">添加图书</el-button>
-            <el-button type="danger" id="delSelected">删除选中</el-button>
-            <el-button type="success" @click="dialogFormVisible = true">添加图书分类</el-button>
-        </div>
+    </div>
+    <div style="float: right;" class="function-button">
+        <el-button type="success" @click="addBook">添加图书</el-button>
+        <el-button type="danger" id="delSelected">删除选中</el-button>
+        <el-button type="success" @click="dialogFormVisible = true">添加图书分类</el-button>
+        <el-button type="success" @click="goShopping">购物车</el-button>
     </div>
     <%--    选中框的表单--%>
     <div class="table-container">
@@ -72,36 +73,20 @@
                     <td>{{information.author}}</td>
                     <td>{{information.borrowedOrNot === 1 ? '是' : '否'}}</td>
                     <td>{{information.whetherToPurchased === 1 ? '是' : '否'}}</td>
+                    <td>
+                        <el-button type="success" plain size="mini" @click="operationShopping(information,true)">添加购物车</el-button>
+                        <el-button type="danger" plain size="mini" @click="operationShopping(information,false)">删除</el-button>
+                    </td>
                 </tr>
             </table>
         </form>
     </div>
     <div id="pagination" style="float: left">
-        <c:if test="${requestScope.pageInfo.currentPage == 1}">
-            <a style="pointer-events: none; opacity: 0.2;">&#9668;</a>
-        </c:if>
-        <c:if test="${requestScope.pageInfo.currentPage != 1}">
-            <a @click="findNextPage(-1,true)">&#9668;</a>
-        </c:if>
-        <span>
-            <c:forEach begin="1" end="${requestScope.pageInfo.totalPage}" var="i">
-                <c:if test="${requestScope.pageInfo.currentPage == i}">
-                     <a class="current"
-                        @click='findNextPage(i,false)'>${i}</a>
-                </c:if>
-                <c:if test="${requestScope.pageInfo.currentPage != i}">
-                    <a class=""
-                       @click="findNextPage(i,false)">${i}</a>
-                </c:if>
-            </c:forEach>
-        </span>
-        <c:if test="${requestScope.pageInfo.currentPage == requestScope.pageInfo.totalPage}">
-            <a style="pointer-events: none;opacity: 0.2;">&#9658;</a>
-        </c:if>
-        <c:if test="${requestScope.pageInfo.currentPage != requestScope.pageInfo.totalPage}">
-            <a @click="findNextPage(1,true)">&#9658;</a>
-        </c:if>
-        <label style="float: initial; font-size: 25px; margin-left: 5px">共${requestScope.pageInfo}条记录，共${requestScope.pageInfo.totalPage}页</label>
+        <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="pageInfo.pages">
+        </el-pagination>
     </div>
     <el-dialog title="添加分类" :visible.sync="dialogFormVisible">
         <el-form :model="bookCategory">
@@ -153,8 +138,19 @@
 
     new Vue({
         el: '#app',
+        watch:{
+          name(val){
+              console.log(val)
+              this.queryList.queryCategory = val
+          }
+        },
         data() {
             return {
+                shopping:[
+
+                ],
+                //分类
+                name: '',
                 formLabelWidth: '120px',
                 bookCategory: {
                     name: ''
@@ -192,6 +188,7 @@
         methods: {
             //加载分类类别
             loadCategory() {
+
                 let _this = this;
                 $.post("../library/findLibraryCategory", {}, function (result) {
                     if (result.code === 1) {
@@ -236,7 +233,6 @@
                 }).then(response => {
                     let result = response.data
                     if (result.code === 1) {
-                        console.log(result.data.list)
                         _this.informationList = result.data.list
                         _this.pageInfo = result.data
                     } else {
@@ -267,7 +263,49 @@
                         Vue.prototype.$message.error(result.msg)
                     }
                 })
+            },
+            //购物车
+            goShopping(){
+                if(this.ifLogin()){
+                    let tempShopping = JSON.parse(localStorage.getItem("shopping"));
+                    if(tempShopping !== null){
+                        tempShopping.forEach(temp => this.shopping.push(temp))
+                    }
+                    localStorage.setItem("shopping",JSON.stringify(this.shopping))
+                    location.href = "shopping.jsp"
+                }
+            },
+            //添加商品
+            /**
+             * 添加或者删除商品
+             * @param information
+             * @param flag true为添加
+             */
+            operationShopping(information,flag = false){
+                //判断是否登录
+                if(this.ifLogin()){
+                    if(flag){
+                        //添加商品
+                        this.shopping.push(information)
+                    }else{
 
+                    }
+                }
+
+            },
+            ifLogin(){
+                return true
+                //判断是否登录
+                const user = localStorage.getItem('user');
+                if(user === null){
+                    //没有登录
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: '<strong>没有登录! <a href="../experiment2/login.jsp">点击登录</a></strong>'
+                    });
+                    return false
+                }
+                return true
             }
         }
 

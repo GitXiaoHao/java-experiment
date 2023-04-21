@@ -203,6 +203,8 @@ new Vue({
                                 message: '欢迎你！' + data.data.username ? data.data.username : '',
                                 type: 'success'
                             });
+                            //存入用户数据
+                            localStorage.setItem('user',JSON.stringify(data.data))
                             //跳转
                             location.href = "data.jsp";
                         } else {
