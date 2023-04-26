@@ -1,6 +1,6 @@
 package top.yh.experiment.service.impl;
 
-import top.yh.database.utils.MyBatisUtil;
+import top.yh.database.utils.mybatis.MyBatisUtil;
 import top.yh.experiment.mapper.BookCategoryMapper;
 import top.yh.experiment.pojo.BookCategory;
 import top.yh.experiment.pojo.Library;

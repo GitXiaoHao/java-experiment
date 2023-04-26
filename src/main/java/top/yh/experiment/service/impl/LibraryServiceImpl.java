@@ -2,12 +2,11 @@ package top.yh.experiment.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import top.yh.database.utils.MyBatisUtil;
+import top.yh.database.utils.mybatis.MyBatisUtil;
 import top.yh.experiment.mapper.LibraryMapper;
 import top.yh.experiment.pojo.Library;
 import top.yh.experiment.service.LibraryService;
 import top.yh.experiment.utils.QueryByPage;
-import top.yh.experiment.utils.Result;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class LibraryServiceImpl
 
     @Override
     public boolean addBook(Library library) {
-        if(this.libraryMapper.addAll(library) == 1){
+        if (this.libraryMapper.addAll(library) == 1) {
             MyBatisUtil.submitSession();
             return true;
         }

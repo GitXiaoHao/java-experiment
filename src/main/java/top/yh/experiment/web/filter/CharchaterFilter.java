@@ -1,7 +1,7 @@
 package top.yh.experiment.web.filter;
 
 
-import top.yh.database.utils.MyBatisUtil;
+import top.yh.database.utils.mybatis.MyBatisUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
