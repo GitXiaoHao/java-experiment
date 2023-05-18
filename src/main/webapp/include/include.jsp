@@ -18,6 +18,12 @@
 <!-- 3. 引入组件库 -->
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" +
+            request.getServerPort() + path + "/";
+%>
+<base href="<%=basePath%>">
 <script type="module">
     import { Message } from 'element-ui'
     import axios from 'axios'

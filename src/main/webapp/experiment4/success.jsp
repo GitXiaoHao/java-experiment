@@ -8,21 +8,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ include file="../include/include.jsp"%>
 <html>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" +
-            request.getServerPort() + path + "/";
-%>
 <head>
     <title>登录成功</title>
     <link href="<%=basePath%>experiment4/page.css" rel="stylesheet">
 </head>
 <body>
 <div id="app">
-    <c:if test="${requestScope.student}">
-        登录成功！欢迎回来 ${requestScope.student.username}
+    <c:if test="${sessionScope.student != null}">
+        登录成功！欢迎回来 ${sessionScope.student.name}
     </c:if>
+
 </div>
 </body>
 </html>

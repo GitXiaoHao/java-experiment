@@ -29,7 +29,7 @@ body {
 }
 
 form {
-    position: relative;
+    display: flex;
     flex-direction: column;
     padding: 32px 0 50px;
     margin: 20px;

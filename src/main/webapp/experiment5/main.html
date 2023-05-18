@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div class="container">
+    <div class="box">
+        <div class="right ipt-box">
+            <div class="container2">
+                <div class="register-box">
+                    <h2 class="register-title">
+                        <span>没有账号，去</span>注册
+                    </h2>
+                    <form action="#" id="registerForm">
+                        <div class="input-box">
+                            <input type="text" name="name" placeholder="用户名" class="input">
+                            <input type="password" name="password" placeholder="密码" autocomplete="off"
+                                   class="password1 input">
+                            <label>
+                                <input type="text" placeholder="验证码" class="input" name="RegisterCode">
+                                <a href="javascript:refreshCode('Register')" class="checkCode">
+                                    <img class="checkCode"
+                                         src="${pageContext.request.contextPath}/student/checkCode?code=Register"
+                                         id="Register"
+                                         alt="code"></a>
+                            </label>
+                            <div class="login_msg">${requestScope.login_msg}</div>
+                        </div>
+                        <button class="btn-register" onclick="registerGo()" type="submit">注册</button>
+                    </form>
+                </div>
+                <div class="login-box slide-up">
+                    <div class="center">
+                        <h2 class="login-title">
+                            <span>已有账号，去</span>登录
+                        </h2>
+                        <form action="#" id="loginForm">
+                            <div class="input-box">
+                                <input type="text" name="name" placeholder="用户名" autocomplete="off" class="input">
+                                <input type="password" name="password" placeholder="密码" class="passwordLogin input">
+                                <i class="eye fa fa-eye-slash eye"></i>
+                                <div class="beam lamp"></div>
+                                <label>
+                                    <input name="LoginCode" type="text" placeholder="验证码" class="input">
+                                    <a href="javascript:refreshCode('Login')">
+                                        <img class="checkCode"
+                                             src="${pageContext.request.contextPath}/student/checkCode?code=Login"
+                                             id="Login" alt="code">
+                                    </a>
+                                </label>
+                            </div>
+                            <button onclick="loginGo()" type="submit">登录</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="main.js"></script>
+<script>
+    console.log(typeof '123')
+    console.log(typeof  + '123')
+    //切换验证码
+    function refreshCode(code) {
+        //获取验证码的图片对象
+        const elementById = document.getElementById(code);
+        elementById.src = "${pageContext.request.contextPath}/student/checkCode?code=" + code + "&time=" + new Date().getTime();
+    }
+
+    function registerGo() {
+        let data = $('#registerForm').serialize()
+        send(data, 'register')
+    }
+
+    function loginGo() {
+        let data = $('#loginForm').serialize()
+        send(data, 'login')
+    }
+
+    function send(data, url) {
+        $.ajax({
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/student/" + url + "?code=1",//url
+            data: data,
+            success: function (result) {
+                console.log(result)
+                let data = result.data
+                if(data.code === 1){
+                    Vue.prototype.$message({
+                        message: data.data,
+                        type: 'success'
+                    });
+                }else{
+                    Vue.prototype.$message.error(data.msg);
+                }
+            },
+            error: function () {
+                alert("异常！");
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

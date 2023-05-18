@@ -3,6 +3,7 @@ package top.yh.experiment.service;
 import top.yh.experiment.pojo.Student;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author yuhao
@@ -21,4 +22,23 @@ public interface StudentService {
      * @param student
      */
     int addStudent(Student student);
+
+    /**
+     * 获取所有学生信息
+     * @return
+     */
+    List<Student> getStuList(String name);
+
+    /**
+     * 根据姓名删除
+     * @param name
+     */
+    void delByName(String name);
+
+    /**
+     * 根据名字查找
+     * @param name
+     * @return
+     */
+    Student getStuByName(String name);
 }

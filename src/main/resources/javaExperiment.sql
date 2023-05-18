@@ -64,3 +64,6 @@ create table student(
 )ENGINE = InnoDB
  DEFAULT CHARSET = utf8
  COLLATE = utf8_bin COMMENT ='学生表';
+
+alter table student add column sex varchar(1) comment '1 代表男 0 代表女' after name;
+alter table student add column no varchar(32) comment '学号' after id;

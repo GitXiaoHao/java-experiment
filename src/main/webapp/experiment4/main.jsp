@@ -7,12 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" +
-            request.getServerPort() + path + "/";
-%>
-<base href="<%=basePath%>">
+<%@ include file="../include/include.jsp"%>
 <html>
 <head>
     <title>登录</title>
@@ -33,7 +28,7 @@
         ${requestScope.msg}
         <div class="register">
 
-            <a href="register.jsp">没有账户？立即注册</a>
+            <a href="${pageContext.request.contextPath}/experiment4/register.jsp">没有账户？立即注册</a>
         </div>
     </c:if>
 </div>

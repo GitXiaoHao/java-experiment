@@ -301,7 +301,7 @@
                     //没有登录
                     this.$message({
                         dangerouslyUseHTMLString: true,
-                        message: '<strong>没有登录! <a href="../experiment2/login.jsp">点击登录</a></strong>'
+                        message: '<strong>没有登录! <a href="../experiment2/main.jsp">点击登录</a></strong>'
                     });
                     return false
                 }

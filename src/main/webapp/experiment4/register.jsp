@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: yuhao
@@ -6,12 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"  isELIgnored="false"%>
+<%@ include file="../include/include.jsp"%>
 <html>
-<%
-  String path = request.getContextPath();
-  String basePath = request.getScheme() + "://" + request.getServerName() + ":" +
-          request.getServerPort() + path + "/";
-%>
 <head>
     <title>注册</title>
   <link href="<%=basePath%>experiment4/page.css" rel="stylesheet">
@@ -29,7 +26,7 @@
   <c:if test="${requestScope.msg}">
     ${requestScope.msg}
     <div class="register">
-      点击登录
+      <a href="${pageContext.request.contextPath}/experiment4/main.jsp">立即登录</a>
     </div>
   </c:if>
 </div>

@@ -32,8 +32,8 @@
     <a href="experiment2/login.jsp" style="--i:2">JSP表单开发及访问数据库</a>
     <a href="experiment3/main.jsp" style="--i:3">JSP内置对象的使用</a>
     <a href="experiment4/main.jsp" style="--i:4">JavaBean及servlet使用</a>
-    <a href="#" style="--i:5">Ajax开发及JSP验证码</a>
-    <a href="#" style="--i:5">综合训练</a>
+    <a href="experiment5/main.jsp" style="--i:5">Ajax开发及JSP验证码</a>
+    <a href="experiment6/main.jsp" style="--i:5">综合训练</a>
     <!--    <a href="#" style="&#45;&#45;i:5">分享</a>-->
     <!--    <a href="#" style="&#45;&#45;i:5">分享</a>-->
     <!--    <a href="#" style="&#45;&#45;i:5">分享</a>-->
